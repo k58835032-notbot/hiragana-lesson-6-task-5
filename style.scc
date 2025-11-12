@@ -1,0 +1,141 @@
+body {
+
+  font-family: 'Segoe UI', sans-serif;
+
+  background: #fffaf6;
+
+  color: #333;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  height: 100vh;
+
+}
+
+#quiz-container {
+
+  background: #ffffff;
+
+  padding: 30px 40px;
+
+  border-radius: 20px;
+box-shadow: 0 0 15px rgba(0,0,0,0.1);
+
+  text-align: center;
+
+  width: 400px;
+
+}
+
+h1 {
+
+  color: #c65d5d;
+
+  margin-bottom: 20px;
+
+}
+
+#word {
+
+  font-size: 2.2em;
+
+  margin: 20px 0;
+
+}
+
+.option-btn {
+
+  display: block;
+
+  width: 100%;
+
+  padding: 12px;
+margin: 8px 0;
+
+  border-radius: 10px;
+
+  border: 2px solid #ddd;
+
+  background-color: #fff;
+
+  cursor: pointer;
+
+  font-size: 1em;
+
+  transition: 0.2s;
+
+}
+
+.option-btn:hover {
+
+  background-color: #f8eaea;
+
+}
+
+.correct {
+
+  background-color: #b8e6b8 !important;
+border-color: #5fa65f;
+
+}
+
+.wrong {
+
+  background-color: #f5b5b5 !important;
+
+  border-color: #a65252;
+
+}
+
+#feedback {
+
+  margin-top: 10px;
+
+  font-weight: bold;
+
+  font-size: 1.1em;
+
+}
+
+#next-btn {
+
+  margin-top: 20px;
+
+  padding: 10px 25px;
+
+  background: #c65d5d;
+
+  color: white;
+
+  border: none;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  font-size: 1em;
+
+}
+
+#next-btn:disabled {
+
+  opacity: 0.6;
+
+  cursor: default;
+
+}
+#result {
+
+  margin-top: 20px;
+
+  font-size: 1.3em;
+
+  font-weight: bold;
+
+  color: #333;
+
+}
