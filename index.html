@@ -1,44 +1,179 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Japanese Word Reading Quiz</title>
-
-  <link rel="stylesheet" href="css/style.css">
-
+  <title>Match the Word with Its Reading</title>
+  <style>
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      text-align: center;
+      padding: 30px;
+      background: #f8fafc;
+    }
+    h1 {
+      font-size: 26px;
+      margin-bottom: 20px;
+    }
+    #quiz-box {
+      background: #fff;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      max-width: 350px;
+      margin: auto;
+    }
+    .question {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    .answers button {
+      margin: 8px;
+      padding: 10px 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      background-color: #e2e8f0;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .answers button:hover {
+      background-color: #cbd5e1;
+    }
+    .correct {
+      background-color: #a7f3d0 !important;
+    }
+    .wrong {
+      background-color: #fecaca !important;
+    }
+    #next-btn {
+      margin-top: 20px;
+      padding: 10px 25px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      background-color: #93c5fd;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    #next-btn:hover {
+      background-color: #60a5fa;
+    }
+    #gift {
+      display: none;
+      font-size: 50px;
+      margin-top: 30px;
+      animation: pop 1s infinite;
+    }
+    @keyframes pop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+  </style>
 </head>
-
 <body>
 
-  <div id="quiz-container">
-
-    <h1>Match the Word with Its Reading</h1>
-
-    <div id="question-box">
-
-      <div id="word"></div>
-
-      <div id="options"></div>
-
-      <div id="feedback"></div>
-
-      <button id="next-btn" disabled>Next</button>
-
-    </div>
-
-    <div id="result"></div>
-
+  <h1>Match the Word with Its Reading</h1>
+  <div id="quiz-box">
+    <div class="question" id="question"></div>
+    <div class="answers" id="answers"></div>
+    <button id="next-btn" disabled>Next</button>
   </div>
+  <div id="gift">🎁✨🎉</div>
 
-  <script src="script.js"></script>
+  <script>
+    const allQuestions = [
+      { word: "あい", correct: "ai" },
+      { word: "あお", correct: "ao" },
+      { word: "いえ", correct: "ie" },
+      { word: "さかな", correct: "sakana" },
+      { word: "すし", correct: "sushi" },
+      { word: "てんき", correct: "tenki" },
+      { word: "がっこう", correct: "gakkou" },
+      { word: "けいさつ", correct: "keisatsu" },
+      { word: "にほん", correct: "nihon" },
+      { word: "たべもの", correct: "tabemono" },
+      { word: "のむ", correct: "nomu" },
+      { word: "おちゃ", correct: "ocha" },
+      { word: "みず", correct: "mizu" },
+      { word: "かぜ", correct: "kaze" },
+      { word: "でんしゃ", correct: "densha" },
+      { word: "にく", correct: "niku" },
+      { word: "はな", correct: "hana" },
+      { word: "つき", correct: "tsuki" },
+      { word: "ひと", correct: "hito" },
+      { word: "やま", correct: "yama" },
+      // Add up to 100 here...
+    ];
 
+    const shuffle = arr => arr.sort(() => Math.random() - 0.5);
+    const selectedQuestions = shuffle(allQuestions).slice(0, 50);
+
+    let current = 0;
+    let score = 0;
+
+    const questionEl = document.getElementById("question");
+    const answersEl = document.getElementById("answers");
+    const nextBtn = document.getElementById("next-btn");
+    const giftEl = document.getElementById("gift");
+
+    function generateDistractors(correct) {
+      const variants = [
+        correct.replace(/k/g, "g"),
+        correct.replace(/s/g, "z"),
+        correct.replace(/a/g, "o"),
+        correct.replace(/i/g, "e"),
+        correct.replace(/tsu/g, "tu"),
+        correct.split("").reverse().join(""),
+        correct.replace(/n/g, "m"),
+        correct.replace(/o/g, "a"),
+      ];
+      const set = new Set([correct]);
+      while (set.size < 4) {
+        const d = shuffle(variants)[0];
+        if (d && d !== correct) set.add(d);
+      }
+      return shuffle([...set]);
+    }
+
+    function showQuestion() {
+      const q = selectedQuestions[current];
+      questionEl.textContent = q.word;
+      answersEl.innerHTML = "";
+      nextBtn.disabled = true;
+
+      const options = generateDistractors(q.correct);
+      options.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.textContent = opt;
+        btn.onclick = () => {
+          document.querySelectorAll(".answers button").forEach(b => b.disabled = true);
+          if (opt === q.correct) {
+            btn.classList.add("correct");
+            score++;
+          } else {
+            btn.classList.add("wrong");
+          }
+          nextBtn.disabled = false;
+        };
+        answersEl.appendChild(btn);
+      });
+    }
+
+    nextBtn.onclick = () => {
+      current++;
+      if (current < selectedQuestions.length) {
+        showQuestion();
+      } else {
+        document.getElementById("quiz-box").style.display = "none";
+        giftEl.style.display = "block";
+        giftEl.innerHTML = `🎉 You got ${score}/${selectedQuestions.length}! 🎁`;
+      }
+    };
+
+    showQuestion();
+  </script>
 </body>
-
 </html>
-
