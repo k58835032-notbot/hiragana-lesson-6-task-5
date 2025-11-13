@@ -209,6 +209,26 @@
         correct.split("").reverse().join(""),
         correct.replace(/n/g, "m"),
         correct.replace(/o/g, "a"),
+        correct.replace(/i/g, "ke"),
+        correct.replace(/ke/g, "i"),
+        correct.replace(/ko/g, "ta"),
+        correct.replace(/da/g, "ta"),
+        correct.replace(/ta/g, "da"),
+        correct.replace(/ta/g, "ko"),
+        correct.replace(/ni/g, "i"),
+correct.replace(/i/g, "ni"),
+        correct.replace(/ni/g, "ko"),
+        correct.replace(/shi/g, "ji"),
+        correct.replace(/ji/g, "shi"),
+        correct.replace(/u/g, "tsu"),
+        correct.replace(/tsu/g, "u"),
+        correct.replace(/ku/g, "gu"),
+        correct.replace(/chi/g, "ki"),
+        correct.replace(/ki/g, "sa"),
+        correct.replace(/sa/g, "chi"),
+        correct.replace(/sa/g, "ki"),
+        correct.replace(/ki/g, "chi")
+    
       ];
       const set = new Set([correct]);
       while (set.size < 4) {
