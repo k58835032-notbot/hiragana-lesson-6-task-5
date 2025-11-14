@@ -109,6 +109,24 @@ body {
   font-size: 1.7rem;
   display: none;
 }
+
+  .result-gif {
+  max-width: 220px;
+  border-radius: 10px;
+  margin: 15px 0;
+}
+
+.result-text {
+  font-size: 24px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.motivation-text {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
 </style>
 
 </head>
@@ -366,11 +384,57 @@ body {
     if (current < selectedQuestions.length) {
       showQuestion();
     } else {
-      document.getElementById("quiz-box").style.display = "none";
-      giftEl.style.display = "block";
-      giftEl.innerHTML =
-        `🎉 You got ${score}/${selectedQuestions.length}! 🎁`;
-    }
+  // Hide quiz, show results box
+  document.getElementById("quiz-box").style.display = "none";
+  giftEl.style.display = "block";
+  giftEl.innerHTML = ""; // clear old content
+
+  // Create containers
+  const resultText = document.createElement("div");
+  resultText.className = "result-text";
+  resultText.textContent = `You scored ${score}/${selectedQuestions.length}!`;
+
+  const motivation = document.createElement("div");
+  motivation.className = "motivation-text";
+
+  const img = document.createElement("img");
+  img.className = "result-gif";
+
+  // GIF links
+  const lowGif =
+    "https://raw.githubusercontent.com/k58835032-notbot/hiragana-lesson-3-reading/main/sad%20(1).gif";
+
+  const midGif =
+    "https://raw.githubusercontent.com/k58835032-notbot/hiragana-lesson-3-reading/9dfe4e3c0835a43c673a94f82005d873295632c4/peach-goma.gif";
+
+  const highGif =
+    "https://raw.githubusercontent.com/k58835032-notbot/hiragana-lesson-3-reading/aa252ee2e91e02c223f7e9151aa64f9abe7700e4/peach-goma-peach-and-goma.gif";
+
+  // Pick GIF based on score
+  if (score <= selectedQuestions.length * 0.33) {
+    img.src = lowGif;
+    motivation.textContent = "Keep practicing — you can do it! 💪";
+  } else if (score <= selectedQuestions.length * 0.66) {
+    img.src = midGif;
+    motivation.textContent = "Nice work! You're improving fast 🌸";
+  } else {
+    img.src = highGif;
+    motivation.textContent = "Amazing! You're a Hiragana master 🎉";
+  }
+
+  // Restart button
+  const restartBtn = document.createElement("button");
+  restartBtn.textContent = "Restart Quiz";
+  restartBtn.id = "next";
+  restartBtn.onclick = () => location.reload();
+
+  // Add everything to the gift box
+  giftEl.appendChild(resultText);
+  giftEl.appendChild(img);
+  giftEl.appendChild(motivation);
+  giftEl.appendChild(restartBtn);
+}
+
   };
 
   showQuestion();
