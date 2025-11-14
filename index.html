@@ -128,199 +128,253 @@ body {
 
 <script>
 
-    const allQuestions = [
-  { word: "あい", correct: "ai" },
-  { word: "あお", correct: "ao" },
-  { word: "あし", correct: "ashi" },
-  { word: "あせ", correct: "ase" },
-  { word: "あつかう", correct: "atsukau" },
-  { word: "あつい", correct: "atsui" },
-  { word: "あく", correct: "aku" },
-  { word: "あいこ", correct: "aiko" },
-  { word: "あき", correct: "aki" },
-  { word: "あこぎ", correct: "akogi" },
-  { word: "あげ", correct: "age" },
-  { word: "いし", correct: "ishi" },
-  { word: "いす", correct: "isu" },
-  { word: "いけ", correct: "ike" },
-  { word: "いのち", correct: "inochi" },
-  { word: "いしき", correct: "ishiki" },
-  { word: "いい", correct: "ii" },
-  { word: "いく", correct: "iku" },
-  { word: "いけん", correct: "iken" },
-  { word: "うた", correct: "uta" },
-  { word: "うたう", correct: "utau" },
-  { word: "うそ", correct: "uso" },
-  { word: "うで", correct: "ude" },
-  { word: "うごく", correct: "ugoku" },
-  { word: "えき", correct: "eki" },
-  { word: "えのぐ", correct: "enogu" },
-  { word: "おと", correct: "oto" },
-  { word: "おとこ", correct: "otoko" },
-  { word: "おんな", correct: "onna" },
-  { word: "おに", correct: "oni" },
-  { word: "おく", correct: "oku" },
-  { word: "こんなん", correct: "konnan" },
-  { word: "かい", correct: "kai" },
-  { word: "かお", correct: "kao" },
-  { word: "かぎ", correct: "kagi" },
-  { word: "かき", correct: "kaki" },
-  { word: "かこ", correct: "kako" },
-  { word: "かく", correct: "kaku" },
-  { word: "かぜ", correct: "kaze" },
-  { word: "かた", correct: "kata" },
-  { word: "かたち", correct: "katachi" },
-  { word: "かつ", correct: "katsu" },
-  { word: "がっき", correct: "gakki" },
-  { word: "かど", correct: "kado" },
-  { word: "かのう", correct: "kanou" },
-  { word: "がい", correct: "gai" },
-  { word: "がく", correct: "gaku" },
-  { word: "がけ", correct: "gake" },
-  { word: "がくせい", correct: "gakusei" },
-  { word: "がいこく", correct: "gaikoku" },
-  { word: "きく", correct: "kiku" },
-  { word: "きせつ", correct: "kisetsu" },
-  { word: "くつ", correct: "kutsu" },
-  { word: "くせ", correct: "kuse" },
-  { word: "くに", correct: "kuni" },
-  { word: "けい", correct: "kei" },
-  { word: "けん", correct: "ken" },
-  { word: "こい", correct: "koi" },
-  { word: "こえ", correct: "koe" },
-  { word: "こころ", correct: "kokoro" },
-  { word: "こく", correct: "koku" },
-  { word: "こくさい", correct: "kokusai" },
-  { word: "ごく", correct: "goku" },
-  { word: "こと", correct: "koto" },
-  { word: "こんざつ", correct: "konzatsu" },
-  { word: "さん", correct: "san" },
-  { word: "さけ", correct: "sake" },
-  { word: "さく", correct: "saku" },
-  { word: "さと", correct: "sato" },
-  { word: "さかな", correct: "sakana" },
-  { word: "さがす", correct: "sagasu" },
-  { word: "さむい", correct: "samui" },
-  { word: "さつ", correct: "satsu" },
-  { word: "ざっし", correct: "zasshi" },
-  { word: "した", correct: "shita" },
-  { word: "しごと", correct: "shigoto" },
-  { word: "しずか", correct: "shizuka" },
-  { word: "しつ", correct: "shitsu" },
-  { word: "しつもん", correct: "shitsumon" },
-  { word: "すうがく", correct: "suugaku" },
-  { word: "すき", correct: "suki" },
-  { word: "せき", correct: "seki" },
-  { word: "せかい", correct: "sekai" },
-  { word: "せつ", correct: "setsu" },
-  { word: "そと", correct: "soto" },
-  { word: "あそこ", correct: "asoko" },
-  { word: "ぞく", correct: "zoku" },
-  { word: "たい", correct: "tai" },
-  { word: "たおす", correct: "taosu" },
-  { word: "たく", correct: "taku" },
-  { word: "たち", correct: "tachi" },
-  { word: "たて", correct: "tate" },
-  { word: "たのしい", correct: "tanoshii" },
-  { word: "ただしい", correct: "tadashii" },
-  { word: "たね", correct: "tane" },
-  { word: "だいがく", correct: "daigaku" },
-  { word: "だいこん", correct: "daikon" },
-  { word: "だんな", correct: "danna" },
-  { word: "なん", correct: "nan" },
-  { word: "にんげん", correct: "ningen" }
-]
+  /* -------------------------
+        DEBUG MODE
+        Turn ON to see distractors in console.
+        Turn OFF for production.
+  --------------------------*/
+  const DEBUG = false;
 
+  /* -------------------------
+        SHUFFLE FUNCTION
+  --------------------------*/
+  const shuffle = arr => arr.sort(() => Math.random() - 0.5);
 
-    const shuffle = arr => arr.sort(() => Math.random() - 0.5);
-    const selectedQuestions = shuffle(allQuestions).slice(0, 50);
+  /* -------------------------
+        MAIN QUESTION LIST (YOURS)
+  --------------------------*/
+  const allQuestions = [
+    { word: "あい", correct: "ai" },
+    { word: "あお", correct: "ao" },
+    { word: "あし", correct: "ashi" },
+    { word: "あせ", correct: "ase" },
+    { word: "あつかう", correct: "atsukau" },
+    { word: "あつい", correct: "atsui" },
+    { word: "あく", correct: "aku" },
+    { word: "あいこ", correct: "aiko" },
+    { word: "あき", correct: "aki" },
+    { word: "あこぎ", correct: "akogi" },
+    { word: "あげ", correct: "age" },
+    { word: "いし", correct: "ishi" },
+    { word: "いす", correct: "isu" },
+    { word: "いけ", correct: "ike" },
+    { word: "いのち", correct: "inochi" },
+    { word: "いしき", correct: "ishiki" },
+    { word: "いい", correct: "ii" },
+    { word: "いく", correct: "iku" },
+    { word: "いけん", correct: "iken" },
+    { word: "うた", correct: "uta" },
+    { word: "うたう", correct: "utau" },
+    { word: "うそ", correct: "uso" },
+    { word: "うで", correct: "ude" },
+    { word: "うごく", correct: "ugoku" },
+    { word: "えき", correct: "eki" },
+    { word: "えのぐ", correct: "enogu" },
+    { word: "おと", correct: "oto" },
+    { word: "おとこ", correct: "otoko" },
+    { word: "おんな", correct: "onna" },
+    { word: "おに", correct: "oni" },
+    { word: "おく", correct: "oku" },
+    { word: "こんなん", correct: "konnan" },
+    { word: "かい", correct: "kai" },
+    { word: "かお", correct: "kao" },
+    { word: "かぎ", correct: "kagi" },
+    { word: "かき", correct: "kaki" },
+    { word: "かこ", correct: "kako" },
+    { word: "かく", correct: "kaku" },
+    { word: "かぜ", correct: "kaze" },
+    { word: "かた", correct: "kata" },
+    { word: "かたち", correct: "katachi" },
+    { word: "かつ", correct: "katsu" },
+    { word: "がっき", correct: "gakki" },
+    { word: "かど", correct: "kado" },
+    { word: "かのう", correct: "kanou" },
+    { word: "がい", correct: "gai" },
+    { word: "がく", correct: "gaku" },
+    { word: "がけ", correct: "gake" },
+    { word: "がくせい", correct: "gakusei" },
+    { word: "がいこく", correct: "gaikoku" },
+    { word: "きく", correct: "kiku" },
+    { word: "きせつ", correct: "kisetsu" },
+    { word: "くつ", correct: "kutsu" },
+    { word: "くせ", correct: "kuse" },
+    { word: "くに", correct: "kuni" },
+    { word: "けい", correct: "kei" },
+    { word: "けん", correct: "ken" },
+    { word: "こい", correct: "koi" },
+    { word: "こえ", correct: "koe" },
+    { word: "こころ", correct: "kokoro" },
+    { word: "こく", correct: "koku" },
+    { word: "こくさい", correct: "kokusai" },
+    { word: "ごく", correct: "goku" },
+    { word: "こと", correct: "koto" },
+    { word: "こんざつ", correct: "konzatsu" },
+    { word: "さん", correct: "san" },
+    { word: "さけ", correct: "sake" },
+    { word: "さく", correct: "saku" },
+    { word: "さと", correct: "sato" },
+    { word: "さかな", correct: "sakana" },
+    { word: "さがす", correct: "sagasu" },
+    { word: "さむい", correct: "samui" },
+    { word: "さつ", correct: "satsu" },
+    { word: "ざっし", correct: "zasshi" },
+    { word: "した", correct: "shita" },
+    { word: "しごと", correct: "shigoto" },
+    { word: "しずか", correct: "shizuka" },
+    { word: "しつ", correct: "shitsu" },
+    { word: "しつもん", correct: "shitsumon" },
+    { word: "すうがく", correct: "suugaku" },
+    { word: "すき", correct: "suki" },
+    { word: "せき", correct: "seki" },
+    { word: "せかい", correct: "sekai" },
+    { word: "せつ", correct: "setsu" },
+    { word: "そと", correct: "soto" },
+    { word: "あそこ", correct: "asoko" },
+    { word: "ぞく", correct: "zoku" },
+    { word: "たい", correct: "tai" },
+    { word: "たおす", correct: "taosu" },
+    { word: "たく", correct: "taku" },
+    { word: "たち", correct: "tachi" },
+    { word: "たて", correct: "tate" },
+    { word: "たのしい", correct: "tanoshii" },
+    { word: "ただしい", correct: "tadashii" },
+    { word: "たね", correct: "tane" },
+    { word: "だいがく", correct: "daigaku" },
+    { word: "だいこん", correct: "daikon" },
+    { word: "だんな", correct: "danna" },
+    { word: "なん", correct: "nan" },
+    { word: "にんげん", correct: "ningen" }
+  ];
 
-    let current = 0;
-    let score = 0;
+  /* -------------------------
+        PICK 50 RANDOM QUESTIONS
+  --------------------------*/
+  const selectedQuestions = shuffle([...allQuestions]).slice(0, 50);
 
-    const questionEl = document.getElementById("question");
-    const answersEl = document.getElementById("answers");
-    const nextBtn = document.getElementById("next-btn");
-    const giftEl = document.getElementById("gift");
+  let current = 0;
+  let score = 0;
 
-    function generateDistractors(correct) {
-      const variants = [
-        correct.replace(/k/g, "g"),
-        correct.replace(/s/g, "z"),
-        correct.replace(/a/g, "o"),
-        correct.replace(/i/g, "e"),
-        correct.replace(/tsu/g, "tu"),
-        correct.split("").reverse().join(""),
-        correct.replace(/n/g, "m"),
-        correct.replace(/o/g, "a"),
-        correct.replace(/i/g, "ke"),
-        correct.replace(/ke/g, "i"),
-        correct.replace(/ko/g, "ta"),
-        correct.replace(/da/g, "ta"),
-        correct.replace(/ta/g, "da"),
-        correct.replace(/ta/g, "ko"),
-        correct.replace(/ni/g, "i"),
-correct.replace(/i/g, "ni"),
-        correct.replace(/ni/g, "ko"),
-        correct.replace(/shi/g, "ji"),
-        correct.replace(/ji/g, "shi"),
-        correct.replace(/u/g, "tsu"),
-        correct.replace(/tsu/g, "u"),
-        correct.replace(/ku/g, "gu"),
-        correct.replace(/chi/g, "ki"),
-        correct.replace(/ki/g, "sa"),
-        correct.replace(/sa/g, "chi"),
-        correct.replace(/sa/g, "ki"),
-        correct.replace(/ki/g, "chi"),
-        correct.replace(/ga/g, "ka")
-    
-      ];
-      const set = new Set([correct]);
-      while (set.size < 4) {
-        const d = shuffle(variants)[0];
-        if (d && d !== correct) set.add(d);
-      }
-      return shuffle([...set]);
+  const questionEl = document.getElementById("question");
+  const answersEl = document.getElementById("answers");
+  const nextBtn = document.getElementById("next-btn");
+  const giftEl = document.getElementById("gift");
+
+  /* -------------------------
+        SAFE DISTRACTOR GENERATOR
+  --------------------------*/
+  function generateDistractors(correct) {
+
+    let variants = [
+      correct.replace(/k/g, "g"),
+      correct.replace(/s/g, "z"),
+      correct.replace(/a/g, "o"),
+      correct.replace(/i/g, "e"),
+      correct.replace(/tsu/g, "tu"),
+      correct.split("").reverse().join(""),
+      correct.replace(/n/g, "m"),
+      correct.replace(/o/g, "a"),
+      correct.replace(/i/g, "ke"),
+      correct.replace(/ke/g, "i"),
+      correct.replace(/ko/g, "ta"),
+      correct.replace(/da/g, "ta"),
+      correct.replace(/ta/g, "da"),
+      correct.replace(/ta/g, "ko"),
+      correct.replace(/ni/g, "i"),
+      correct.replace(/i/g, "ni"),
+      correct.replace(/ni/g, "ko"),
+      correct.replace(/shi/g, "ji"),
+      correct.replace(/ji/g, "shi"),
+      correct.replace(/u/g, "tsu"),
+      correct.replace(/tsu/g, "u"),
+      correct.replace(/ku/g, "gu"),
+      correct.replace(/chi/g, "ki"),
+      correct.replace(/ki/g, "sa"),
+      correct.replace(/sa/g, "chi"),
+      correct.replace(/sa/g, "ki"),
+      correct.replace(/ki/g, "chi"),
+      correct.replace(/ga/g, "ka")
+    ];
+
+    // Remove invalid or identical
+    variants = variants.filter(v =>
+      v && v.length > 0 && v !== correct && v !== ""
+    );
+
+    // Fallback in case list becomes too small
+    if (variants.length < 3) {
+      variants.push(correct + "a", correct + "i", correct + "u");
     }
 
-    function showQuestion() {
-      const q = selectedQuestions[current];
-      document.getElementById("progress").textContent =
-    `Question ${current+1} of ${selectedQuestions.length}`;
-      questionEl.textContent = q.word;
-      answersEl.innerHTML = "";
-      nextBtn.disabled = true;
+    const set = new Set([correct]);
 
-      const options = generateDistractors(q.correct);
-      options.forEach(opt => {
-        const btn = document.createElement("button");
-        btn.textContent = opt;
-        btn.onclick = () => {
-          document.querySelectorAll(".answers button").forEach(b => b.disabled = true);
-          if (opt === q.correct) {
-            btn.classList.add("correct");
-            score++;
-          } else {
-            btn.classList.add("wrong");
-          }
-          nextBtn.disabled = false;
-        };
-        answersEl.appendChild(btn);
-      });
+    // Build 4 unique answers safely
+    while (set.size < 4) {
+      const option = variants[Math.floor(Math.random() * variants.length)];
+      if (option && option !== correct) set.add(option);
     }
 
-    nextBtn.onclick = () => {
-      current++;
-      if (current < selectedQuestions.length) {
-        showQuestion();
-      } else {
-        document.getElementById("quiz-box").style.display = "none";
-        giftEl.style.display = "block";
-        giftEl.innerHTML = `🎉 You got ${score}/${selectedQuestions.length}! 🎁`;
-      }
-    };
+    const result = shuffle([...set]);
 
-    showQuestion();
-  </script>
+    if (DEBUG) {
+      console.log(`Word: ${correct} →`, result);
+    }
+
+    return result;
+  }
+
+  /* -------------------------
+        SHOW QUESTION
+  --------------------------*/
+  function showQuestion() {
+    const q = selectedQuestions[current];
+
+    document.getElementById("progress").textContent =
+      `Question ${current + 1} of ${selectedQuestions.length}`;
+
+    questionEl.textContent = q.word;
+    answersEl.innerHTML = "";
+    nextBtn.disabled = true;
+
+    const options = generateDistractors(q.correct);
+
+    options.forEach(opt => {
+      const btn = document.createElement("button");
+      btn.textContent = opt;
+
+      btn.onclick = () => {
+        document.querySelectorAll(".answers button").forEach(b => b.disabled = true);
+
+        if (opt === q.correct) {
+          btn.classList.add("correct");
+          score++;
+        } else {
+          btn.classList.add("wrong");
+        }
+
+        nextBtn.disabled = false;
+      };
+
+      answersEl.appendChild(btn);
+    });
+  }
+
+  /* -------------------------
+        NEXT BUTTON
+  --------------------------*/
+  nextBtn.onclick = () => {
+    current++;
+    if (current < selectedQuestions.length) {
+      showQuestion();
+    } else {
+      document.getElementById("quiz-box").style.display = "none";
+      giftEl.style.display = "block";
+      giftEl.innerHTML =
+        `🎉 You got ${score}/${selectedQuestions.length}! 🎁`;
+    }
+  };
+
+  showQuestion();
+
+</script>
 </body>
 </html>
