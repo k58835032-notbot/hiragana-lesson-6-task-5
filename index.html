@@ -4,109 +4,104 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Match the Word with Its Reading</title>
- body {
-  font-family: "Hiragino Kaku Gothic Pro", "Meiryo", sans-serif;
-  background: #fafafa;
-  margin: 0;
-  padding: 40px 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
-/* Title */
-.title {
-  font-size: 2rem;
-  color: #b33a3a;
-  margin-bottom: 30px;
-  text-align: center;
-}
+  <style>
+    body {
+      font-family: "Hiragino Kaku Gothic Pro", "Meiryo", sans-serif;
+      background: #fafafa;
+      margin: 0;
+      padding: 40px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-/* White card like screenshot */
-.quiz-card {
-  background: white;
-  width: 100%;
-  max-width: 650px;
-  border-radius: 20px;
-  padding: 40px 30px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-  text-align: center;
-}
+    .title {
+      font-size: 2rem;
+      color: #b33a3a;
+      margin-bottom: 30px;
+      text-align: center;
+    }
 
-/* "Question 1 of 20" */
-.progress {
-  font-size: 1.1rem;
-  color: #666;
-  margin-bottom: 10px;
-}
+    .quiz-card {
+      background: white;
+      width: 100%;
+      max-width: 650px;
+      border-radius: 20px;
+      padding: 40px 30px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      text-align: center;
+    }
 
-/* Big question word */
-.question {
-  font-size: 2.1rem;
-  font-weight: 600;
-  margin: 20px 0 30px;
-}
+    .progress {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 10px;
+    }
 
-/* Answer buttons container */
-.answers {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  margin-bottom: 30px;
-}
+    .question {
+      font-size: 2.1rem;
+      font-weight: 600;
+      margin: 20px 0 30px;
+    }
 
-/* Answer buttons styled like screenshot */
-.answers button {
-  background: #ffecec;
-  border: none;
-  border-radius: 12px;
-  padding: 15px 10px;
-  font-size: 1.4rem;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
+    .answers {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 30px;
+    }
 
-.answers button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
+    .answers button {
+      background: #ffecec;
+      border: none;
+      border-radius: 12px;
+      padding: 15px 10px;
+      font-size: 1.4rem;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
 
-/* Correct / wrong color feedback */
-.answers .correct {
-  background: #d8f8d8 !important;
-}
+    .answers button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
 
-.answers .wrong {
-  background: #ffd2d2 !important;
-}
+    .answers .correct {
+      background: #d8f8d8 !important;
+    }
 
-/* Next button */
-.next-btn {
-  background: #b33a3a;
-  color: white;
-  border: none;
-  padding: 12px 25px;
-  border-radius: 12px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: .2s;
-}
+    .answers .wrong {
+      background: #ffd2d2 !important;
+    }
 
-.next-btn:disabled {
-  opacity: 0.5;
-  cursor: default;
-}
+    .next-btn {
+      background: #b33a3a;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: .2s;
+    }
 
-.next-btn:hover:not(:disabled) {
-  transform: scale(1.05);
-}
+    .next-btn:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
 
-/* Score box */
-.gift {
-  margin-top: 30px;
-  font-size: 1.7rem;
-  display: none;
-}
+    .next-btn:hover:not(:disabled) {
+      transform: scale(1.05);
+    }
+
+    .gift {
+      margin-top: 30px;
+      font-size: 1.7rem;
+      display: none;
+    }
+  </style>
+</head>
 
   <script>
     const allQuestions = [
