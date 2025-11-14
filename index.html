@@ -5,105 +5,129 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Match the Word with Its Reading</title>
 
-  <style>
-    body {
-      font-family: "Hiragino Kaku Gothic Pro", "Meiryo", sans-serif;
-      background: #fafafa;
-      margin: 0;
-      padding: 40px 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+<style>
+body {
+  font-family: "Hiragino Kaku Gothic Pro", "Meiryo", sans-serif;
+  background: #fafafa;
+  margin: 0;
+  padding: 40px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-    .title {
-      font-size: 2rem;
-      color: #b33a3a;
-      margin-bottom: 30px;
-      text-align: center;
-    }
+/* Title */
+.title {
+  font-size: 2rem;
+  color: #b33a3a;
+  margin-bottom: 30px;
+  text-align: center;
+}
 
-    .quiz-card {
-      background: white;
-      width: 100%;
-      max-width: 650px;
-      border-radius: 20px;
-      padding: 40px 30px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-      text-align: center;
-    }
+/* White card like screenshot */
+.quiz-card {
+  background: white;
+  width: 100%;
+  max-width: 650px;
+  border-radius: 20px;
+  padding: 40px 30px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  text-align: center;
+}
 
-    .progress {
-      font-size: 1.1rem;
-      color: #666;
-      margin-bottom: 10px;
-    }
+/* "Question 1 of 20" */
+.progress {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 10px;
+}
 
-    .question {
-      font-size: 2.1rem;
-      font-weight: 600;
-      margin: 20px 0 30px;
-    }
+/* Big question word */
+.question {
+  font-size: 2.1rem;
+  font-weight: 600;
+  margin: 20px 0 30px;
+}
 
-    .answers {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-bottom: 30px;
-    }
+/* Answer buttons container */
+.answers {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 30px;
+}
 
-    .answers button {
-      background: #ffecec;
-      border: none;
-      border-radius: 12px;
-      padding: 15px 10px;
-      font-size: 1.4rem;
-      cursor: pointer;
-      transition: 0.2s ease;
-    }
+/* Answer buttons styled like screenshot */
+.answers button {
+  background: #ffecec;
+  border: none;
+  border-radius: 12px;
+  padding: 15px 10px;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
 
-    .answers button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
+.answers button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
 
-    .answers .correct {
-      background: #d8f8d8 !important;
-    }
+/* Correct / wrong color feedback */
+.answers .correct {
+  background: #d8f8d8 !important;
+}
 
-    .answers .wrong {
-      background: #ffd2d2 !important;
-    }
+.answers .wrong {
+  background: #ffd2d2 !important;
+}
 
-    .next-btn {
-      background: #b33a3a;
-      color: white;
-      border: none;
-      padding: 12px 25px;
-      border-radius: 12px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      transition: .2s;
-    }
+/* Next button */
+.next-btn {
+  background: #b33a3a;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: .2s;
+}
 
-    .next-btn:disabled {
-      opacity: 0.5;
-      cursor: default;
-    }
+.next-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
 
-    .next-btn:hover:not(:disabled) {
-      transform: scale(1.05);
-    }
+.next-btn:hover:not(:disabled) {
+  transform: scale(1.05);
+}
 
-    .gift {
-      margin-top: 30px;
-      font-size: 1.7rem;
-      display: none;
-    }
-  </style>
+/* Score box */
+.gift {
+  margin-top: 30px;
+  font-size: 1.7rem;
+  display: none;
+}
+</style>
+
 </head>
+<body>
 
-  <script>
+<h1 class="title">Match the Word with Its Reading</h1>
+
+<div id="quiz-box" class="quiz-card">
+  <div id="progress" class="progress"></div>
+  <div id="question" class="question"></div>
+  <div id="answers" class="answers"></div>
+
+  <button id="next-btn" class="next-btn">Next</button>
+</div>
+
+<div id="gift" class="gift"></div>
+
+<script>
+
     const allQuestions = [
   { word: "あい", correct: "ai" },
   { word: "あお", correct: "ao" },
