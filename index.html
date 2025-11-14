@@ -6,73 +6,351 @@
   <title>Match the Word with Its Reading</title>
   <style>
     body {
-      font-family: 'Noto Sans JP', sans-serif;
-      text-align: center;
-      padding: 30px;
-      background: #f8fafc;
-    }
-    h1 {
-      font-size: 26px;
-      margin-bottom: 20px;
-    }
-    #quiz-box {
-      background: #fff;
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      max-width: 350px;
-      margin: auto;
-    }
-    .question {
-      font-size: 28px;
-      margin-bottom: 20px;
-    }
-    .answers button {
-      margin: 8px;
-      padding: 10px 20px;
-      font-size: 18px;
-      border: none;
-      border-radius: 10px;
-      background-color: #e2e8f0;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .answers button:hover {
-      background-color: #cbd5e1;
-    }
-    .correct {
-      background-color: #a7f3d0 !important;
-    }
-    .wrong {
-      background-color: #fecaca !important;
-    }
-    #next-btn {
-      margin-top: 20px;
-      padding: 10px 25px;
-      font-size: 18px;
-      border: none;
-      border-radius: 10px;
-      background-color: #93c5fd;
-      color: white;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    #next-btn:hover {
-      background-color: #60a5fa;
-    }
-    #gift {
-      display: none;
-      font-size: 50px;
-      margin-top: 30px;
-      animation: pop 1s infinite;
-    }
-    @keyframes pop {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-      100% { transform: scale(1); }
-    }
-  </style>
+
+    font-family: "Hiragino Kaku Gothic Pro", "Meiryo", sans-serif;
+
+    background: #fafafa;
+
+    color: #333;
+
+    margin: 0;
+
+    display: flex;
+
+    justify-content: center;
+
+    padding: 40px 20px;
+
+  }
+
+  .wrap {
+
+    width: 100%;
+
+    max-width: 800px;
+
+  }
+
+  .card {
+
+    background: #fff;
+
+    border-radius: 20px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+
+    padding: 30px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+  }
+
+  h1 {
+
+    font-size: 1.8rem;
+
+    color: var(--accent);
+
+    margin-bottom: 30px;
+
+    text-align: center;
+
+  }
+
+  .row-info {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    width: 100%;
+
+    font-weight: 600;
+
+    color: #666;
+
+    margin-bottom: 12px;
+
+  }
+
+  #rowName {
+
+    color: #333;
+
+  }
+
+  .boxes {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 16px;
+
+    flex-wrap: wrap;
+
+    margin-bottom: 25px;
+
+  }
+
+  .box {
+
+    width: 90px;
+
+    height: 110px;
+
+    border: 2px solid #ddd;
+
+    border-radius: 12px;
+
+    background: #fff;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    transition: all 0.25s;
+
+    position: relative;
+
+  }
+
+  .romaji {
+
+    font-size: 1.1rem;
+
+    color: #444;
+
+    position: relative;
+
+    padding-bottom: 6px;
+
+  }
+
+  .romaji::after {
+
+    content: "";
+
+    display: block;
+
+    width: 36px;
+
+    height: 3px;
+
+    background: #ccc;
+
+    margin: 4px auto 0;
+
+    border-radius: 2px;
+
+  }
+
+  .box.active .romaji::after {
+
+    background: var(--accent);
+
+  }
+
+  .char {
+
+    font-size: 2.2rem;
+
+    font-weight: bold;
+
+    color: #111;
+
+    margin-top: 4px;
+
+  }
+
+  .box.locked {
+
+    border-color: #cfead1;
+
+    background: #f8fff8;
+
+  }
+
+  .box.wrong {
+
+    animation: shake 0.18s;
+
+  }
+
+  @keyframes shake {
+
+    20% { transform: translateX(-6px); }
+
+    60% { transform: translateX(6px); }
+
+    100% { transform: translateX(0); }
+
+  }
+
+  .big-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+
+    gap: 12px;
+
+    width: 100%;
+
+    margin-bottom: 18px;
+
+  }
+
+  .kana-btn {
+
+    padding: 10px 0;
+
+    font-size: 1.5rem;
+
+    border-radius: 12px;
+
+    background: #fff;
+
+    border: 2px solid #eee;
+
+    box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+
+  }
+
+  .kana-btn:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 4px 10px rgba(0,0,0,0.07);
+
+  }
+
+  .kana-btn.correct {
+
+    background: #dff0d8;
+
+    border-color: #9ad59a;
+
+  }
+
+  .kana-btn.incorrect {
+
+    animation: flashWrong 0.5s;
+
+  }
+
+  @keyframes flashWrong {
+
+    0% { background: #fff; }
+
+    50% { background: #ffd6d6; }
+
+    100% { background: #fff; }
+
+  }
+
+  #message {
+
+    min-height: 24px;
+
+    text-align: center;
+
+    font-weight: 600;
+
+    color: #333;
+
+    margin-top: 6px;
+
+  }
+
+  .controls {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-top: 16px;
+
+  }
+
+  .btn {
+
+    background: var(--accent);
+
+    color: #fff;
+
+    padding: 8px 16px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    transition: all 0.2s;
+
+  }
+
+  .btn:hover {
+
+    opacity: 0.9;
+
+  }
+
+  .btn.secondary {
+
+    background: #eee;
+
+    color: #333;
+
+  }
+
+  footer {
+
+    margin-top: 20px;
+
+    text-align: center;
+
+    color: #777;
+
+    font-size: 0.9rem;
+
+  }
+
+  .resultGif {
+
+    margin-top: 16px;
+
+    border-radius: 12px;
+
+    animation: fadeIn 0.8s ease forwards;
+
+    opacity: 0;
+
+    max-width: 240px;
+
+  }
+
+  @keyframes fadeIn { to { opacity: 1; } }
+
+</style>
+
 </head>
+
 <body>
 
   <h1>Match the Word with Its Reading</h1>
